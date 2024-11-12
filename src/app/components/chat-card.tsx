@@ -6,10 +6,16 @@ import stockData from "../../../db/chatbot-stock-data.json"
 
 export default function ChatCard() {
   const [currentExchange, setCurrentExchange] = React.useState(null);
+  const [currentStock, setCurrentStock] = React.useState(null);
 
   const handleSelectExchange = (exchange: React.SetStateAction<null>) => {
     setCurrentExchange(exchange);
+    setCurrentStock(null);
   } ;
+
+  const handleSelectStock = (stock: React.SetStateAction<null>) => {
+    setCurrentStock(stock);
+  }
 
   return (
     <Card className="absolute bottom-20 right-5 max-w-[540px] min-w-[500px]">
@@ -33,12 +39,33 @@ export default function ChatCard() {
       <CardBody className="px-3 text-default-400">
         {!currentExchange && (
           <div className="flex flex-col">
-            <h5>Please select a Stock Exchange</h5>
+            <h5 className="mb-4">Please select a Stock Exchange</h5>
             {stockData.map((exchange: { code: any; stockExchange: any; }) => (
               <Button className="rounded-none mb-1" key={exchange.code} onClick={() => handleSelectExchange(exchange)}>
                 {exchange.stockExchange}
               </Button>
             ))}
+          </div>
+        )}
+        {currentExchange && !currentStock && (
+          <div className="flex flex-col">
+            <h5 className="mb-4">Please select a Stock</h5>
+            {currentExchange.topStocks.map((stock) => (
+              <Button className="rounded-none mb-1" key={stock.code} onClick={() => handleSelectStock(stock)}>
+                {stock.stockName}
+              </Button>
+            ))}
+            <Button className="rounded-none mb-1" variant="bordered" onClick={() => setCurrentExchange(null)}>
+              Back
+            </Button>
+          </div>
+        )}
+        {currentStock && (
+          <div className="flex flex-col">
+            <h5 className="mb-4">Stock Price of {currentStock.stockName} is <b className="text-white">{currentStock.price}</b></h5>
+            <Button className="rounded-none mb-1" variant="bordered" onClick={() => setCurrentStock(null)}>
+              Back
+            </Button>
           </div>
         )}
         
