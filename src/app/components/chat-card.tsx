@@ -26,22 +26,19 @@ export default function ChatCard() {
             <h4 className="text-small font-semibold leading-none text-default-600">LSEG Chatbot</h4>
           </div>
         </div>
-        <Button
-          className="bg-transparent text-foreground border-default-200"
-          color="primary"
-          radius="full"
-          size="sm"
-          variant="solid"
+        <a
+          href="#"
+          className="bg-transparent text-foreground border-default-200 pr-2"
         >
-            X
-        </Button>
+            x
+        </a>
       </CardHeader>
       <CardBody className="px-3 text-default-400">
         {!currentExchange && (
           <div className="flex flex-col">
             <h5 className="mb-4">Please select a Stock Exchange</h5>
             {stockData.map((exchange: { code: any; stockExchange: any; }) => (
-              <Button className="rounded-none mb-1" key={exchange.code} onClick={() => handleSelectExchange(exchange)}>
+              <Button className="mb-1" radius="none" key={exchange.code} onClick={() => handleSelectExchange(exchange)}>
                 {exchange.stockExchange}
               </Button>
             ))}
@@ -51,11 +48,11 @@ export default function ChatCard() {
           <div className="flex flex-col">
             <h5 className="mb-4">Please select a Stock</h5>
             {currentExchange.topStocks.map((stock) => (
-              <Button className="rounded-none mb-1" key={stock.code} onClick={() => handleSelectStock(stock)}>
+              <Button className="mb-1" radius="none" key={stock.code} onClick={() => handleSelectStock(stock)}>
                 {stock.stockName}
               </Button>
             ))}
-            <Button className="rounded-none mb-1" variant="bordered" onClick={() => setCurrentExchange(null)}>
+            <Button className="mb-1" radius="none" variant="bordered" onClick={() => setCurrentExchange(null)}>
               Back
             </Button>
           </div>
@@ -63,7 +60,10 @@ export default function ChatCard() {
         {currentStock && (
           <div className="flex flex-col">
             <h5 className="mb-4">Stock Price of {currentStock.stockName} is <b className="text-white">{currentStock.price}</b></h5>
-            <Button className="rounded-none mb-1" variant="bordered" onClick={() => setCurrentStock(null)}>
+            <Button className="mb-1" radius="none" onClick={() => {setCurrentExchange(null); setCurrentStock(null)}}>
+              Main Menu
+            </Button>
+            <Button className="mb-1" radius="none" variant="bordered" onClick={() => setCurrentStock(null)}>
               Back
             </Button>
           </div>
