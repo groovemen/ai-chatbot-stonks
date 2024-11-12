@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
-import Image from "next/image";
-=======
 import { Button } from "@nextui-org/react";
 import ChatCard from "./components/chat-card"
->>>>>>> Stashed changes
 
 export default function Home() {
   return (
